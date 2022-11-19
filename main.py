@@ -28,8 +28,9 @@ async def inverse_picture():
     return {"message": "Obrazek jest teraz nawiedzony"}
 
 
-time = datetime.now().strftime("%H:%M:%S")
+
 
 @app.get("/login")
 async def user(credentials: HTTPBasicCredentials = Depends(HTTPBasic())):
+    time = datetime.now().strftime("%H:%M:%S")
     return {"message": f"Czas teraz {time} "}
