@@ -1,34 +1,35 @@
-# pip install fastapi
-# pip install "uvicorn[standard]"
-# uvicorn main:app --reload
-# Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
-
-from typing import Union
-from fastapi import FastAPI
-import cv2
-
-
+from fastapi import FastAPI, Depends
 from primePy import primes
+import cv2
+from datetime import datetime
 
+from fastapi.security import HTTPBasic, HTTPBasicCredentials
 app = FastAPI()
 
 @app.get("/")
 async def root():
     return {"message": "By sprawdzić czy liczba jest pierwsza - http://localhost:8000/prime/10619863  " +
-            " By odwrócić kolory obrazka  - http://127.0.0.1:8000/inversion/image.jpg"
+            " By odwrócić kolory obrazka  - http://127.0.0.1:8000/picture/invert/image.jpg"
             }
 
 @app.get("/prime/{number}")
-async def isprimenum(number: int):
-    if isprimenum(number):  return {"message": "Liczba jest pierwsza"}
+async def is_prime_number(number: int):
+    if primes.check(number):  return {"message": f"Liczba {number} jest pierwsza"}
     else:
-        return {"message": "Liczba nie jest pierwsza"}
+        return {"message": f"Liczba {number} nie jest pierwsza"}
 
+image=cv2.imread('image.jpg')
 
-@app.get("/inversion/{image}")
-async def inversepicture(image):
-    image = cv2.imread(image)
-    image = ~image
-    cv2.imwrite("img_inverted.jpg", image)
+@app.get("/picture/invert")
+async def inverse_picture():
+
+    newimage = ~image
+    cv2.imwrite("img_inverted.jpg", newimage)
     return {"message": "Obrazek jest teraz nawiedzony"}
 
+
+time = datetime.now().strftime("%H:%M:%S")
+
+@app.get("/login")
+async def user(credentials: HTTPBasicCredentials = Depends(HTTPBasic())):
+    return {"message": f"Czas teraz {time} "}
