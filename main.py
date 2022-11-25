@@ -8,7 +8,7 @@ app = FastAPI()
 
 @app.get("/")
 async def root():
-    return {"message": "By sprawdzić czy liczba jest pierwsza - http://localhost:8000/prime/10619863  " +
+    return {"message": "By sprawdzić czy liczba jest pierwsza - http://localhost:8000/prime/10619863 lub https://zprogramowanie-grzanka.herokuapp.com/prime/10619863 " +
             " By odwrócić kolory obrazka  - http://127.0.0.1:8000/picture/invert/image.jpg"
             }
 
