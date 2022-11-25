@@ -18,14 +18,14 @@ async def is_prime_number(number: int):
     else:
         return {"message": f"Liczba {number} nie jest pierwsza"}
 
-image=cv2.imread('image.jpg')
+#image=cv2.imread('image.jpg')
 
-@app.get("/picture/invert")
-async def inverse_picture():
-
-    newimage = ~image
-    cv2.imwrite("img_inverted.jpg", newimage)
-    return {"message": "Obrazek jest teraz nawiedzony"}
+# @app.get("/picture/invert")
+# async def inverse_picture():
+#
+#     newimage = ~image
+#     cv2.imwrite("img_inverted.jpg", newimage)
+#     return {"message": "Obrazek jest teraz nawiedzony"}
 
 
 
